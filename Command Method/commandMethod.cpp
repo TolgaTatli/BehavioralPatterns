@@ -2,73 +2,86 @@
 #include <vector>
 
 // Receiver class
-class Light {
+class Light
+{
 public:
-  void turnOn() {
+  void turnOn()
+  {
     std::cout << "Light is on." << std::endl;
   }
 
-  void turnOff() {
+  void turnOff()
+  {
     std::cout << "Light is off." << std::endl;
   }
 };
 
-// Command interface
-class Command {
+// Command interface  // that interface only have one method which is "execute()"
+class Command
+{
 public:
   virtual void execute() = 0;
 };
 
 // Concrete command classes
-class TurnOnCommand : public Command {
+class TurnOnCommand : public Command
+{
 private:
-  Light& light;
+  Light &light;
 
 public:
-  TurnOnCommand(Light& light) : light(light) {}
+  TurnOnCommand(Light &light) : light(light) {}
 
-  void execute() override {
+  void execute() override
+  {
     light.turnOn();
   }
 };
 
-class TurnOffCommand : public Command {
+class TurnOffCommand : public Command
+{
 private:
-  Light& light;
+  Light &light;
 
 public:
-  TurnOffCommand(Light& light) : light(light) {}
+  TurnOffCommand(Light &light) : light(light) {}
 
-  void execute() override {
+  void execute() override
+  {
     light.turnOff();
   }
 };
 
-// Invoker class
-class RemoteControl {
+// Invoker class // that class has a vector of commands and execute them
+class RemoteControl
+{ // set command and execute them // there are two methods in this class such as setCommand and executeCommands
 private:
-  std::vector<Command*> commands;
+  std::vector<Command *> commands;
 
 public:
-  void setCommand(Command* command) {
+  void setCommand(Command *command)
+  {
     commands.push_back(command);
   }
 
-  void executeCommands() {
-    for (Command* command : commands) {
+  void executeCommands()
+  {
+    for (Command *command : commands)
+    {
       command->execute();
     }
     commands.clear();
   }
 };
 
-int main() {
+int main()
+{
   // Create receiver object
   Light light;
 
   // Create command objects
-  Command* turnOnCommand = new TurnOnCommand(light); 
-  Command* turnOffCommand = new TurnOffCommand(light);
+  Command *turnOnCommand = new TurnOnCommand(light);
+  Command *turnOffCommand = new TurnOffCommand(light);
 
   // Create invoker object
   RemoteControl remoteControl;

@@ -42,10 +42,10 @@ public:
     colleagues.push_back(colleague);
   }
 
-  void sendMessage(const std::string& message, Colleague* colleague) override {
-    for (auto c : colleagues) {
-      if (c != colleague) {
-        c->receiveMessage(message);
+  void sendMessage(const std::string& message, Colleague* sender) override {
+    for (auto colleague : colleagues) {
+      if (colleague != sender) {
+        colleague->receiveMessage(message);
       }
     }
   }
